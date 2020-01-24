@@ -7,7 +7,7 @@ services:
       - "POSTGRES_PASSWORD=111"
       - "POSTGRES_DB=simple"
     ports:
-      - "5458:5432"
+      - "5432:5432"
     command: ["postgres", "-c", "log_statement=all"]
   app:
     image: my-golang-app

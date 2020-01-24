@@ -1,4 +1,6 @@
 FROM golang:1.13.6-alpine AS goose
+
+ENV CGO_ENABLED=0
 RUN apk update
 RUN apk add --no-cache git gcc
 RUN go get -u github.com/pressly/goose/cmd/goose
@@ -9,12 +11,15 @@ ADD . /app/
 WORKDIR /app
 
 RUN go mod download
-RUN go build -o main ./bin
+RUN go build -o /bin/simple cmd/simple/main.go
+RUN go build -o /bin/migrate migration/main.go
 
 FROM alpine:latest
-COPY --from=build /app/main /app/main
-COPY --from=goose /go/bin/goose goose
+COPY --from=build /bin/simple /bin/simple
+COPY --from=build /bin/migrate /bin/migrate
+COPY --from=goose /go/bin/goose /usr/bin/goose
 #COPY migration.sh migration
-COPY migrations migrations
+COPY migration/migrations migration_db
+#COPY migration/migration.sh migration
 
-CMD ["/app/main"]
+CMD ["/bin/simple"]
