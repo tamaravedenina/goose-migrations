@@ -25,8 +25,8 @@ migrate-version:
 .PHONY: install-goose
 install-goose:
 ifeq ($(wildcard $(GOOSE_BIN)),)
-	go get -d github.com/pressly/goose/cmd/goose
-	$ go build -i -o bin/goose github.com/pressly/goose/cmd/goose
+	go get -u github.com/pressly/goose/cmd/goose
+	go build -i -o bin/goose github.com/pressly/goose/cmd/goose
 	go mod tidy
 GOOSE_BIN:=bin/goose
 endif

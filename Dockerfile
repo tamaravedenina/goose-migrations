@@ -18,8 +18,6 @@ FROM alpine:latest
 COPY --from=build /bin/simple /bin/simple
 COPY --from=build /bin/migrate /bin/migrate
 COPY --from=goose /go/bin/goose /usr/bin/goose
-#COPY migration.sh migration
 COPY migration/migrations migration_db
-#COPY migration/migration.sh migration
 
 CMD ["/bin/simple"]
