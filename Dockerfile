@@ -10,7 +10,6 @@ RUN mkdir /app
 ADD . /app/
 WORKDIR /app
 
-RUN go mod download
 RUN go build -o /bin/simple cmd/simple/main.go
 RUN go build -o /bin/migrate migration/main.go
 
