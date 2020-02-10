@@ -1,1 +1,1 @@
-# go-migrations
+# goose-migrations
